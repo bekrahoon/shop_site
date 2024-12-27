@@ -1,0 +1,7 @@
+{% for category in categories %}
+<div class="card">
+  <div class="card-body">
+    <a href="{% url 'category_detail' category.id %}">{{ category.name }}</a>
+  </div>
+</div>
+{% endfor %}
