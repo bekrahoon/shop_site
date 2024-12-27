@@ -169,3 +169,23 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+
+# Игнорировать медиафайлы
+media/
+
+# Игнорировать скомпилированные файлы Python
+__pycache__/
+
+
+# Игнорировать файлы и папки, связанные с виртуальной средой
+.env
+venv/
+newenv/
+# Игнорировать статические файлы, собранные с помощью Django
+staticfiles/
+
+# Игнорировать папки и файлы, связанные с Visual Studio Code
+.vscode/
+
+*.pyc
