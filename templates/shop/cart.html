@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
 <h1>Ваша корзина</h1>
 <table class="table">
     <thead>
@@ -25,3 +27,4 @@
 </table>
 <h3>Итого: {{ total_price }}₽</h3>
 <a href="/" class="btn btn-primary">Продолжить покупки</a>
+{% endblock %}
