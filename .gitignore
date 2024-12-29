@@ -189,3 +189,4 @@ staticfiles/
 .vscode/
 
 *.pyc
+text.txt

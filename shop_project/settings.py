@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "shop",
+    "cart",
+    "auth_app",
 ]
 
 MIDDLEWARE = [
@@ -134,3 +136,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",  # Убедитесь, что этот бекенд указан
+]
+
+AUTH_USER_MODEL = "auth_app.CustomUser"  # Укажите путь к вашей модели CustomUser
