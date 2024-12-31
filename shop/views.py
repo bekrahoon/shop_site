@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views import View
 from .models import Category, Product
 from typing import Dict, Any
+from django.db.models import Q
 
 
 class IndexView(View):
@@ -36,4 +37,37 @@ class ProductDetailView(View):
     def get(self, request: HttpRequest, product_id: int) -> HttpResponse:
         product = self.get_product(product_id)
         context: Dict[str, Any] = {"product": product}
+        return render(request, self.template_name, context)
+
+
+class SearchResultsView(View):
+    template_name = "shop/search_results.html"
+
+    def get(self, request: HttpRequest) -> HttpResponse:
+        query = request.GET.get("q", "")
+        category_id = request.GET.get("category_id")  # Получаем ID категории из запроса
+
+        products = (
+            Product.objects.filter(
+                Q(name__icontains=query) | Q(description__icontains=query)
+            )
+            if query
+            else Product.objects.all()
+        )
+
+        # Фильтруем по категории, если указано category_id
+        if category_id:
+            products = products.filter(category_id=category_id)
+
+        # Сортировка по цене (опционально)
+        products = products.order_by("price")
+
+        categories = Category.objects.all()
+        context: Dict[str, Any] = {
+            "query": query,
+            "products": products,
+            "categories": categories,
+            "category_id": category_id,
+        }
+
         return render(request, self.template_name, context)
