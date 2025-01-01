@@ -24,6 +24,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("shop.urls")),
     path("cart/", include("cart.urls")),
-    path("auth/", include("auth_app.urls")),  # Подключение auth_app
+    path("auth/", include("auth_app.urls")),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

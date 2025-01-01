@@ -22,9 +22,18 @@ class CategoryDetailView(View):
         return get_object_or_404(Category, id=category_id)
 
     def get(self, request: HttpRequest, category_id: int) -> HttpResponse:
+        categories = Category.objects.filter(parent__isnull=True)
         category = self.get_category(category_id)
-        products = category.products.all()
-        context: Dict[str, Any] = {"category": category, "products": products}
+
+        child_categories = category.children.all()
+        products = category.products.all() if not child_categories else []
+
+        context: Dict[str, Any] = {
+            "categories": categories,
+            "category": category,
+            "child_categories": child_categories,
+            "products": products,
+        }
         return render(request, self.template_name, context)
 
 
@@ -35,8 +44,12 @@ class ProductDetailView(View):
         return get_object_or_404(Product, id=product_id)
 
     def get(self, request: HttpRequest, product_id: int) -> HttpResponse:
+        categories = Category.objects.filter(parent__isnull=True)
         product = self.get_product(product_id)
-        context: Dict[str, Any] = {"product": product}
+        context: Dict[str, Any] = {
+            "product": product,
+            "categories": categories,
+        }
         return render(request, self.template_name, context)
 
 

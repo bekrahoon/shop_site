@@ -5,9 +5,9 @@
     <thead>
         <tr>
             <th>Товар</th>
-            <th>Цена</th>
             <th>Количество</th>
-            <th>Всего</th>
+            <th>Цена за шт.</th>
+            <th>Общая стоимость</th>
             <th>Действия</th>
         </tr>
     </thead>
@@ -15,16 +15,36 @@
         {% for item in cart_items %}
         <tr>
             <td>{{ item.product.name }}</td>
-            <td>{{ item.product.price }}₽</td>
-            <td>{{ item.quantity }}</td>
-            <td>{{ item.get_total_price }}₽</td>
             <td>
-                <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-danger btn-sm">Удалить</a>
+                <form method="post" action="{% url 'update_cart' item.id %}">
+                    {% csrf_token %}
+                    <input
+                        type="number"
+                        name="quantity"
+                        value="{{ item.quantity }}"
+                        min="1"
+                        max="{{ item.product.stock|add:item.quantity }}"
+                        class="form-control"
+                        style="width: 80px;"
+                    >
+                    <button type="submit" class="btn btn-sm btn-secondary mt-2">
+                        Обновить
+                    </button>
+                </form>
+            </td>
+            <td>{{ item.product.price }}</td>
+            <td>{{ item.get_total_price }}</td>
+            <td>
+                <form method="post" action="{% url 'remove_from_cart' item.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-danger">Удалить</button>
+                </form>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-<h3>Итого: {{ total_price }}₽</h3>
+<p class="text-end fw-bold">Общая стоимость: {{ total_price }}</p>
+
 <a href="/" class="btn btn-primary">Продолжить покупки</a>
 {% endblock %}
