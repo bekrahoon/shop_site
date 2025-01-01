@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1>Результаты поиска</h1>
-
+<!-- Результаты поиска -->
 {% if query %}
     <p>Вы искали: <strong>{{ query }}</strong></p>
     {% if products %}
@@ -29,4 +29,18 @@
 {% else %}
     <p>Введите запрос для поиска товаров.</p>
 {% endif %}
+<!-- Список категорий -->
+<div class="mb-4">
+    <h4>Категории</h4>
+    <ul class="list-group">
+        {% for category in categories %}
+        <li class="list-group-item {% if category.id|stringformat:"d" == category_id %}active{% endif %}">
+            <a href="{% url 'category_detail' category.id %}?q={{ query }}&category_id={{ category.id }}" 
+               class="text-decoration-none text-dark">
+                {{ category.name }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}

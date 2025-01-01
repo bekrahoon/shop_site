@@ -72,6 +72,7 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = "shop_project.wsgi.application"
 
 
@@ -138,7 +139,7 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 AUTHENTICATION_BACKENDS = [
-    "django.contrib.auth.backends.ModelBackend",  # Убедитесь, что этот бекенд указан
+    "django.contrib.auth.backends.ModelBackend",
 ]
 
-AUTH_USER_MODEL = "auth_app.CustomUser"  # Укажите путь к вашей модели CustomUser
+AUTH_USER_MODEL = "auth_app.CustomUser"

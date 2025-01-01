@@ -2,17 +2,21 @@ from django.db import models
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=255)
     parent = models.ForeignKey(
         "self",
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
+        related_name="children",
         null=True,
         blank=True,
-        related_name="subcategories",
     )
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = "Categories"
+        ordering = ["name"]
 
 
 class Product(models.Model):
