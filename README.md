@@ -6,7 +6,6 @@ This is a Django-based e-commerce application.
 - Python 3.x
 - Django 4.x
 - PostgreSQL (or use SQLite for development)
-- Redis (optional, for handling sessions or cache)
 
 ## Installation
 
