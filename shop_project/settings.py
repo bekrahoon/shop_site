@@ -81,17 +81,24 @@ WSGI_APPLICATION = "shop_project.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": config("DATABASE_NAME"),
-        "USER": config("DATABASE_USER"),
-        "PASSWORD": config("DATABASE_PASSWORD"),
-        "HOST": "localhost",  #! change to localhost  if you're running on local machine
-        "PORT": "5432",
-        "OPTIONS": {
-            "client_encoding": "UTF8",
-        },
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",  # Путь к файлу базы данных в корне проекта
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": config("DATABASE_NAME"),
+#         "USER": config("DATABASE_USER"),
+#         "PASSWORD": config("DATABASE_PASSWORD"),
+#         "HOST": "localhost",  #! change to localhost  if you're running on local machine
+#         "PORT": "5432",
+#         "OPTIONS": {
+#             "client_encoding": "UTF8",
+#         },
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
